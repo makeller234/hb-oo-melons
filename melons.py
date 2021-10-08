@@ -26,7 +26,17 @@ class AbstractMelonOrder():
 
             self.shipped = True
 
-class DomesticMelonOrder(AbstractMelonOrder):
+class TooManyMelonsError(ValueError):
+    pass
+    # def __init__(self, expression, message):
+    #     self.expression = self.qty > 100
+    #     self.message = "No more than 100 melons!"
+    
+    #def too_many(self):
+        # if self.qty > 100:
+        #     print(self.message)
+
+class DomesticMelonOrder(AbstractMelonOrder, TooManyMelonsError):
     """A melon order within the USA."""
 
     def __init__(self, species, qty):
@@ -37,9 +47,13 @@ class DomesticMelonOrder(AbstractMelonOrder):
         self.shipped = False
         self.order_type = "domestic"
         self.tax = 0.08
+        
+        if self.qty >100:
+            raise TooManyMelonsError
+        else:
+            self.qty = qty
 
-
-class InternationalMelonOrder(AbstractMelonOrder):
+class InternationalMelonOrder(AbstractMelonOrder, TooManyMelonsError):
     """An international (non-US) melon order."""
 
     def __init__(self, species, qty, country_code):
@@ -76,4 +90,5 @@ class GovernmentMelonOrder(AbstractMelonOrder):
             self.passed_inspection = True
         else:
             self.passed_inspection = False
- 
+
+        
