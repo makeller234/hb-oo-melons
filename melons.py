@@ -1,12 +1,21 @@
+from random import randrange
+from datetime import datetime, date, time
 """Classes for melon orders."""
 class AbstractMelonOrder():
-        # def __init__(self):
-           
+        def get_base_price(self):
+            base_price = randrange(5,10)
+            print(base_price)
             
+            if datetime.now() > datetime.time(8,0,0) or datetime.now() < datetime.time(12,0,0):
+                base_price = base_price + 4
+                print(base_price)
+
+            return base_price
+           
         def get_total(self):
             """Calculate price, including tax."""
 
-            base_price = 5
+            base_price = self.get_base_price()
             if self.species == 'Christmas melons':
                 base_price = base_price * 1.5
             total = (1 + self.tax) * self.qty * base_price
@@ -68,4 +77,4 @@ class GovernmentMelonOrder(AbstractMelonOrder):
             self.passed_inspection = True
         else:
             self.passed_inspection = False
-     
+ 
