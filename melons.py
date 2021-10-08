@@ -58,3 +58,14 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+
+    passed_inspection = False
+
+    def mark_inspection(self, passed):
+        if passed == True:
+            self.passed_inspection = True
+        else:
+            self.passed_inspection = False
+     
