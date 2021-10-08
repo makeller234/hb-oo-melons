@@ -5,12 +5,11 @@ class AbstractMelonOrder():
         def get_base_price(self):
             base_price = randrange(5,10)
             print(base_price)
-            
-            if datetime.now() > datetime.time(8,0,0) or datetime.now() < datetime.time(12,0,0):
+            today = datetime.now()
+            if (today.hour > 8 and today.hour < 11) and (date.isoweekday(today) != 6 or date.isoweekday(today) != 7):
                 base_price = base_price + 4
-                print(base_price)
-
             return base_price
+
            
         def get_total(self):
             """Calculate price, including tax."""
